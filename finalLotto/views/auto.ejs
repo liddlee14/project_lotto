@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-image: url("../img/lottobk.png");
+        background-size: cover;
+    }
+
+    input{
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        margin-top: 50px;
+        width: 70px;
+        height: 50px;
+        background-color: rgb(195, 201, 216);
+    }
+
+    #autoButt{
+        position:fixed;
+        left: 810px;
+        top: 260px;
+        
+    }
+    button{
+
+        background-color: rgb(58, 82, 148);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20px;
+    }
+    
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+function cls(){
+    // alert("!!!!!!");
+    
+    $('input[name=num1]').attr('value',"");
+    $('input[name=num2]').attr('value',"");
+    $('input[name=num3]').attr('value',"");
+    $('input[name=num4]').attr('value',"");
+    $('input[name=num5]').attr('value',"");
+    $('input[name=num6]').attr('value',"");
+
+}
+
+   
+function auto(){
+    var ran=[];
+    var num1=$('input[name=num1]').val();
+    var num2=$('input[name=num2]').val();
+    var num3=$('input[name=num3]').val();
+    var num4=$('input[name=num4]').val();
+    var num5=$('input[name=num5]').val();
+    var num6=$('input[name=num6]').val();
+
+    for(var i=0;i<6;i++){
+        ran[i]=parseInt(Math.random()*45)+1;
+       // console.log(ran[0]);
+    
+    }
+    $('input[name=num1]').attr('value',ran[0]);
+       $('input[name=num2]').attr('value',ran[1]);
+       $('input[name=num3]').attr('value',ran[2]);
+       $('input[name=num4]').attr('value',ran[3]);
+       $('input[name=num5]').attr('value',ran[4]);
+       $('input[name=num6]').attr('value',ran[5]);
+
+}
+
+function purchase(){
+    $("form").attr({
+        action:"/auto_buy",
+        method:"post"
+    });
+    $("form").submit();
+}
+
+</script>
+<body>
+    <%-include("./header.ejs")%>
+    <div id="buy">
+        <form>
+        <div id=buyResult>
+            <input type="hidden"  name="user_id" value="aaaa">
+            
+            <input type="text" name="num1">
+            <input type="text"  name="num2">
+            <input type="text" name="num3">
+            <input type="text"  name="num4">
+            <input type="text" name="num5">
+            <input type="text"  name="num6">
+          
+        </div>
+    </form>
+    <div id="autoButt">
+        <button type="button" onclick="auto()">번호 발행</button>
+        <button  id="autoButton" onclick="cls()">초기화</button>
+        <button type="button" onclick="purchase()">구매</button>
+        <button>취소</button>
+    </div>
+    </div>
+    <%-include("./footer.ejs")%>
+</body>
+</html>

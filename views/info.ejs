@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <title>Document</title>
+    </head>
+    <style>
+        body {
+            background-image: url("../img/lottobk.png");
+            background-size: 2000px 1000px;
+            
+        }
+
+        #mainimg { 
+            width: 450px;
+            height: 500px;
+            border-color: black;
+            position: fixed;
+            left: 400px;
+            top: 260px;
+        }
+        h1 {
+            position: fixed;
+            left: 1100px;
+            top: 200px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(150, 156, 235);
+            text-shadow: 4px 4px 4px rgb(74, 76, 104);
+        }
+
+        /* h3{
+            font-size: 15px;
+        } */
+        #img1 {
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 900px;
+            top: 300px;
+        }
+        #img2 {
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 900px;
+            top: 400px;
+        }
+        #img3 {
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 900px;
+            top: 500px;
+        }
+        #img4 {
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            left: 900px;
+            top: 600px;
+        }
+
+        #bugda1 {
+            position: fixed;
+            left: 1030px;
+            top: 280px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(150, 156, 235);
+        }
+        #bugda2 {
+            position: fixed;
+            left: 1030px;
+            top: 390px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(150, 156, 235);
+        }
+        #bugda3 {
+            position: fixed;
+            left: 1030px;
+            top: 490px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(150, 156, 235);
+        }
+        #bugda4 {
+            position: fixed;
+            left: 1030px;
+            top: 590px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: rgb(150, 156, 235);
+        }
+
+        h3{
+            line-height: 90%;
+        }
+
+        /* .txtM{
+            margin-top: 100px;
+        } */
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        
+       $(document).ready(function(){
+     var ran=[];
+    var num1=$('input[name=num1]').val();
+    var num2=$('input[name=num2]').val();
+    var num3=$('input[name=num3]').val();
+    var num4=$('input[name=num4]').val();
+    var num5=$('input[name=num5]').val();
+    var num6=$('input[name=num6]').val();
+
+    for(var i=0;i<6;i++){
+        ran[i]=parseInt(Math.random()*45)+1;
+       // console.log(ran[0]);
+
+    }
+    $('input[name=num1]').attr('value',ran[0]);
+       $('input[name=num2]').attr('value',ran[1]);
+       $('input[name=num3]').attr('value',ran[2]);
+       $('input[name=num4]').attr('value',ran[3]);
+       $('input[name=num5]').attr('value',ran[4]);
+       $('input[name=num6]').attr('value',ran[5]);
+
+       $("form").attr({
+           action:"/info",
+           method:"post"
+       });
+       $("form").submit();
+    });
+    </script>
+    <body>
+        <%- include('./header.ejs')%>
+
+        <div>
+            <img src="../img/main.png" id="mainimg"></img>
+            <h1>Bugda LoTTo 소개</h1>
+            <img src="../img/main1.png" id="img1"></img>
+            <div id="bugda1" class="txtM">
+                <h2>Bugda복권은 온라인복권입니다.</h2><p>
+                <h3>Bugda의 회원이라면 누구나 온라인으로 구매를 할 수 있습니다.</h3>
+            </div>
+            <img src="../img/main2.png" id="img2"></img>
+            <div id="bugda2" class="txtM">
+                <h2>자동,수동으로 고객이 선택하여 구입할 수 있습니다.</h2><p>
+                <h3>"자동선택"을 선택하시면 45개의 번호중 6개의 번호를 임의로 받습니다.
+                    
+                </h3>
+            </div>
+            <img src="../img/main3.png" id="img3"></img>
+            <div id="bugda3" class="txtM">
+                <h2>즉석 당첨결과</h2><p>
+                <h3>메인페이지의 당첨결과를 누르시면 바로 결과를 확인이 가능합니다.</h3>
+            </div>
+            <img src="../img/main4.png" id="img4"></img>
+            <div id="bugda4" class="txtM">
+                <h2>고객센터</h2><p>
+                <h3>불편 사항이나 기타 사항은 고객센터로 문의 주시면 감사하겠습니다. </h3>
+            </div>
+        </div>
+                            <form>
+                                <input type="hidden" name="num1"></input>
+                                <input type="hidden" name="num2"></input>
+                                <input type="hidden" name="num3"></input>
+                                <input type="hidden" name="num4"></input>
+                                <input type="hidden" name="num5"></input>
+                                <input type="hidden" name="num6"></input>
+                            </form>
+
+                            <%- include('../views/footer.ejs')%>
+                            </body>
+                        </html>

@@ -1,0 +1,307 @@
+SQL> create user bugda identified by '1234';
+create user bugda identified by '1234'
+                                *
+ERROR at line 1:
+ORA-00988: missing or invalid password(s) 
+
+
+SQL> create user bugda identified by "1234";
+
+User created.
+
+SQL> conn bugda/1234
+ERROR:
+ORA-01045: user BUGDA lacks CREATE SESSION privilege; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> show user;
+USER is ""
+SQL> conn system/1234
+Connected.
+SQL> grant connect,resource,db tao bugda;
+
+Grant succeeded.
+
+SQL> conn bugda/1234
+Connected.
+SQL> conn system/1234
+Connected.
+SQL> grant delete,insert,select,update,create to bugda;
+grant delete,insert,select,update,create to bugda
+                                  *
+ERROR at line 1:
+ORA-01919: role 'CREATE' does not exist 
+
+
+SQL> grant delete,insert,select,update,createtable to bugda;
+grant delete,insert,select,update,createtable to bugda
+                                  *
+ERROR at line 1:
+ORA-01919: role 'CREATETABLE' does not exist 
+
+
+SQL> grant delete,insert,select,update,create table to bugda;
+grant delete,insert,select,update,create table to bugda
+      *
+ERROR at line 1:
+ORA-01919: role 'DELETE' does not exist 
+
+
+SQL> grant create table to bugda;
+
+Grant succeeded.
+
+SQL> grant delete,insert,select,update to bugda;
+grant delete,insert,select,update to bugda
+      *
+ERROR at line 1:
+ORA-01919: role 'DELETE' does not exist 
+
+
+SQL> select * from all_databases;
+select * from all_databases
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from all_users;
+
+USERNAME                                                        USER_ID CREATED 
+------------------------------------------------------------ ---------- --------
+XS$NULL                                                      2147483638 14/05/29
+BUGDA                                                                53 21/08/21
+WEBMASTER                                                            52 21/06/15
+JAVASE                                                               51 21/05/18
+NODE                                                                 50 21/04/08
+ADAM                                                                 49 21/03/02
+FRONT                                                                48 21/02/26
+APEX_040000                                                          47 14/05/29
+APEX_PUBLIC_USER                                                     45 14/05/29
+FLOWS_FILES                                                          44 14/05/29
+HR                                                                   43 14/05/29
+
+USERNAME                                                        USER_ID CREATED 
+------------------------------------------------------------ ---------- --------
+MDSYS                                                                42 14/05/29
+ANONYMOUS                                                            35 14/05/29
+XDB                                                                  34 14/05/29
+CTXSYS                                                               32 14/05/29
+APPQOSSYS                                                            30 14/05/29
+DBSNMP                                                               29 14/05/29
+ORACLE_OCM                                                           21 14/05/29
+DIP                                                                  14 14/05/29
+OUTLN                                                                 9 14/05/29
+SYSTEM                                                                5 14/05/29
+SYS                                                                   0 14/05/29
+
+22 rows selected.
+
+SQL> select name from v$database;
+
+NAME                                                                            
+------------------                                                              
+XE                                                                              
+
+SQL> conn bugda/1234
+Connected.
+SQL> conn system/1234
+Connected.
+SQL> grant create session to bugda;
+
+Grant succeeded.
+
+SQL> conn bugda/1234
+Connected.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table client(
+  2  client_id number primary key
+  3  , user varchar(20)
+  4  , pass varchar(20)
+  5  , name varchar(20)
+  6  , birth varchar(20)
+  7  ,phone varchar(13) 
+  8* )
+  9  /
+, user varchar(20)
+  *
+ERROR at line 3:
+ORA-00904: : invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table client(
+  2  client_id number primary key
+  3  , user_id varchar(20)
+  4  , pass varchar(20)
+  5  , name varchar(20)
+  6  , birth varchar(20)
+  7  ,phone varchar(13) 
+  8* )
+SQL> /
+
+Table created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table client(
+  2  client_id number primary key
+  3  , user_id varchar(20)
+  4  , pass varchar(20)
+  5  , name varchar(20)
+  6  , birth varchar(20)
+  7  ,phone varchar(13) 
+  8* )
+SQL> conn
+Enter user-name: system
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn system/1234
+Connected.
+SQL> grant create sequence to bugda;
+
+Grant succeeded.
+
+SQL> conn bugda/1234
+Connected.
+SQL> create sequence seq_client
+  2  increment by 1
+  3  start with 1;
+
+Sequence created.
+
+SQL> insert into client(client_id,user_id,pass,name,birth,phone)
+  2  values(seq_client.nextval,'aaaa','1234','����','940916','010-1111-2222');
+values(seq_client_id.nextval,'aaaa','1234','����','940916','010-1111-2222')
+       *
+ERROR at line 2:
+ORA-02289: sequence does not exist 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into client(client_id,user_id,pass,name,birth,phone)
+  2* values(seq_client.nextval,'aaaa','1234','����','940916','010-1111-2222')
+SQL> /
+
+1 row created.
+
+SQL> select * from client;
+
+ CLIENT_ID USER_ID                                                              
+---------- ----------------------------------------                             
+PASS                                                                            
+----------------------------------------                                        
+NAME                                                                            
+----------------------------------------                                        
+BIRTH                                    PHONE                                  
+---------------------------------------- --------------------------             
+         1 aaaa                                                                 
+1234                                                                            
+����                                                                            
+940916                                   010-1111-2222                          
+                                                                                
+
+SQL> select name from v$database;
+select name from v$database
+                 *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop bugda;
+drop bugda
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop user bugda;
+drop user bugda
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn system/1234
+Connected.
+SQL> drop user bugda;
+drop user bugda
+*
+ERROR at line 1:
+ORA-01922: CASCADE must be specified to drop 'BUGDA' 
+
+
+SQL> grant drop to bugda;
+grant drop to bugda
+      *
+ERROR at line 1:
+ORA-01919: role 'DROP' does not exist 
+
+
+SQL> grant drop user;
+grant drop user
+              *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> grant drop user bugda
+  2  ;
+grant drop user bugda
+                *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> grant drop user to bugda;
+
+Grant succeeded.
+
+SQL> conn bugda/1234
+Connected.
+SQL> drop uesr bugda;
+drop uesr bugda
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop bugda;
+drop bugda
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop to me;
+drop to me
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop user bugda;
+drop user bugda
+*
+ERROR at line 1:
+ORA-01940: cannot drop a user that is currently connected 
+
+
+SQL> conn system/1234
+Connected.
+SQL> drop user bugda cascade;
+
+User dropped.
+
+SQL> spool off

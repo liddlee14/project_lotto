@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#f2f2f2 ; 
+    background-image: url("../img/lottobk.png");
+        background-size: 2000px 1000px;
+  }
+* {box-sizing: border-box;}
+h1{
+    text-align: center;
+    color: rgb(195, 201, 216);
+}
+
+.input-container {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.icon {
+    border: none;
+  padding: 10px;
+  background:#3B5998;
+  color: whitesmoke;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  background-color: rgb(195, 201, 216);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+    
+  background-color:#3B5998;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+label{
+    margin-left: 50px;
+}
+</style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function CheckId(){
+  if($("#idCheck").val()==$("#user_id").val()){
+    alert("중복된 아이디 입니다.");
+  return;
+  }
+}
+
+function join(){
+
+if(document.getElementById("user_id").value==""){
+  alert("아이디를 입력해주세요");
+  return;
+}  
+
+if(document.getElementById("pass").value==""){
+  alert("비밀번호를 입력해주세요");
+  return;
+}  
+if(document.getElementById("rpw").value==""){
+  alert("비밀번호를 1번 더 입력해주세요");
+  return;
+}  
+if(document.getElementById("rpw").value!=document.getElementById("pass").value){
+  alert("비밀번호가 서로 다릅니다.");
+  return;
+}  
+if(document.getElementById("name").value==""){
+  alert("이름를 입력해주세요");
+  return;
+}  
+if(document.getElementById("birth").value==""){
+  alert("생년월일을 입력해주세요");
+  return;
+}  
+if(document.getElementById("birth").value.length!=6){
+  alert("ex) 940916 형식에 맞게 입력해주세요");
+  return;
+}  
+if(document.getElementById("phone").value==""){
+  alert("전화번호를 입력해주세요");
+  return;
+}  
+if(isNaN(document.getElementById("phone").value)){
+  alert("숫자로 입력하세요");
+  document.getElementById("phone").focus();
+  return;//함수 호출한 곳으로 실행부를 돌아가게 함
+}
+  
+  $("form").attr({
+    action:"join",
+    method:"post"
+  });
+  $("form").submit();
+}
+
+</script>
+<body>
+
+<form style="max-width:500px;margin:auto">
+  <h1>회원가입</h1>
+  <div class="input-container">
+    <i class="fa fa-user icon"></i>
+    <input class="input-field" id="user_id" type="text" placeholder="아이디" name="user_id">
+    <button class="input-field"  type="button"  onclick="CheckId()" class="bt_id" style="width: 180px; height: 43px;">중복검사</button>
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+    <input class="input-field" id="pass" type="password" placeholder="비밀번호" name="pass">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+    <input class="input-field" id="rpw" type="password" placeholder="비밀번호 확인" name="rpw">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-user icon"></i>
+    <input class="input-field" id="name" type="text" placeholder="이름" name="name">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" id="birth" type="text" placeholder="생년월일 ex) 940916" name="birth">
+  </div>
+  
+ 
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" id="phone" type="text" placeholder="전화번호(* 번호를 기입하실 때 -없이 작성하세요)" name="phone">
+  </div>
+
+  <div>
+  <%for(var i=0;i<param.id.length;i++){%>
+  <input type="hidden" id="idCheck"" value="<%=param.id[i]%>" class="idCheck">
+  <%}%>
+  <label></label>
+ </div>
+
+  <button type="button" class="btn" onclick="join()"">회원가입</button>
+</form>
+
+</body>
+</html>

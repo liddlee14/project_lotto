@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <title>Document</title>
+        <style>
+            body {
+            background-image: url("../img/lottobk.png");
+            background-size: cover;
+        }
+
+            input[type=text], textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 2px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+                font-family: 'Noto Sans KR', sans-serif;
+            }
+
+            textarea content {
+                height: 600px;
+            }
+
+            input[type=button] {
+                margin-top: 10px;
+                background-color: rgb(58, 82, 148);
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: 'Noto Sans KR', sans-serif;
+                font-size: 14px;
+            }
+
+            textarea{
+                height: 300px;
+            }
+
+            input{
+                background-color: rgb(195, 201, 216);
+            }
+            
+            textarea{
+                background-color: rgb(195, 201, 216);
+            }
+
+            input[type=button]:hover {
+                background: rgb(65, 85, 201);
+                
+            }
+
+            .writeCsWrapper{
+                height: 800px;
+                width: 1200px;
+                margin: auto;
+                border-radius: 5px;
+                padding: 20px;
+            }
+            #writeCsTitle {
+                margin-left: 530px;
+                font-size: 40px;
+                font-family: 'Black Han Sans', sans-serif;
+                color: rgb(150, 156, 235);
+                font-family: 'Noto Sans KR', sans-serif;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function uploadCs(){
+                $("form").attr({
+                    action:"/uploadCs",
+                    method:"post"
+                });
+                $("form").submit();
+            }
+
+            function listCs(){
+                if (document.getElementById("uploadButton")) {
+                    location.href = '/cs'
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <%- include('../views/header.ejs')%>
+        <div class="writeCsWrapper">
+            <div id="writeCsTitle">글쓰기</div>
+            <form>
+                
+                <input type="text" name="cs_title" placeholder="Title...">
+                <input type="text" name="user_id" value="<%=clientUser.user_id%>">
+                <textarea name="cs_content" placeholder="Write something..." id="CsId"></textarea>
+
+                <input type="button" id="uploadButton" value="등록" onclick="uploadCs()">
+                <input type="button" id="listButton" value="목록" onclick="listCs()">
+            </form>
+        </div>
+        <%- include('../views/footer.ejs')%>
+    </body>
+</html>

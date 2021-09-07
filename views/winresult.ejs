@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>당첨결과</title>
+</head>
+<style>
+
+body {
+        background-image: url("../img/lottobk.png");
+        background-size: cover;
+    }
+#h_text{
+    margin:auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 100%;
+    font-size: 30px;
+    font-weight: bold;
+    left:1000px;
+    float:left;
+    color: rgb(150, 156, 235);
+}
+.text-on-img{
+    width:100%;
+    height: 100%;
+    margin:auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.background-wrap1 {
+  background-image: url("../img/num1.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+.background-wrap2 {
+  background-image: url("../img/num2.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+.background-wrap3 {
+  background-image: url("../img/num3.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+.background-wrap4 {
+  background-image: url("../img/num4.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+.background-wrap5 {
+  background-image: url("../img/num5.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+.background-wrap6 {
+  background-image: url("../img/num6.png");
+  background-size: 150px 150px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  left:500px;
+  float:left;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
+
+.content p {
+  color: rgb(45, 47, 70);
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.content p:nth-child(1) {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.content p:nth-child(2) {
+  font-size: 20px;
+} 
+
+#result p{
+  font-size:50px;
+  font-weight: bold;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  color: rgb(150, 156, 235);
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+    <%-include("./header.ejs")%>
+   
+    <div id=h_text>
+   
+    <h2>당첨번호</h2>
+   
+   <%var winnum=[]%>
+   <%var count=0%>
+
+   <%winnum[0]=param.win1%>
+   <%winnum[1]=param.win2%>
+   <%winnum[2]=param.win3%>
+   <%winnum[3]=param.win4%>
+   <%winnum[4]=param.win5%>
+   <%winnum[5]=param.win6%>
+
+   
+    </div>
+    <input type="hidden" name="user_id" value="<%=clientUser.user_id%>">
+    <div class="text-on-img">
+        <div class="background-wrap1">
+          <div class="content">
+            <p><%=param.win1%></p>
+           
+          </div>
+        </div>
+
+        <div class="background-wrap2">
+            <div class="content">
+              <p><%=param.win2%></p>
+             
+            </div>
+          </div>
+
+          <div class="background-wrap3">
+            <div class="content">
+              <p><%=param.win3%></p>
+             
+            </div>
+          </div>
+
+          <div class="background-wrap4">
+            <div class="content">
+              <p><%=param.win4%></p>
+             
+            </div>
+          </div>
+
+          <div class="background-wrap5">
+            <div class="content">
+              <p><%=param.win5%></p>
+             
+            </div>
+          </div>
+
+          <div class="background-wrap6">
+            <div class="content">
+              <p><%=param.win6%></p>
+             
+            </div>
+          </div>
+      </div>
+
+      <div id="result">
+        <%for(var i=0;i<param.num1.length;i++){%>
+          <%for(var j=0;j<6;j++){%>
+          <%if(param.num1[i]==winnum[j]){%>
+            <%count++%>
+            <%}%>
+            <%if(param.num2[i]==winnum[j]){%>
+              <%count++%>
+            <%}%>
+            <%if(param.num3[i]==winnum[j]){%>
+              <%count++%>
+            <%}%>
+            <%if(param.num4[i]==winnum[j]){%>
+              <%count++%>
+            <%}%>
+            <%if(param.num5[i]==winnum[j]){%>
+              <%count++%>
+            <%}%>
+            <%if(param.num6[i]==winnum[j]){%>
+              <%count++%>
+            <%}%>
+            
+           
+          <%}%>
+         
+          <%if(count==6){%>
+            <p><%=(i+1)%>번째 로또: 1등 당첨!!!!!</p>
+            <%}%>
+            <%if(count==5){%>
+              <p><%=(i+1)%>번째 로또: 2등 당첨!!!!!</p>
+              <%}%>
+              <%if(count==4){%>
+                <p><%=(i+1)%>번째 로또: 3등 당첨!!!!!</p>
+                <%}%>
+                <%if(count==3){%>
+                  <p><%=(i+1)%>번째 로또: 4등 당첨!!!!!</p>
+                  <%}%>
+                  <%if(count==2){%>
+                    <p><%=(i+1)%>번째 로또: 5등 당첨!!!!!</p>
+                    <%}%>
+                  <%if(count==1||count==0){%>
+                    <p><%=(i+1)%>번째 로또: 다음 기회에</p>
+                    <%}%>
+                    
+                    <%count=0%>
+                    
+          <%}%>
+         
+          
+          
+      </div>
+
+
+        
+   
+</div>
+<%-include("./footer.ejs")%>
+</body>
+</html>

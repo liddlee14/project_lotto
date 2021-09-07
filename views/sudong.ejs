@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+            background-image: url("../img/lottobk.png");
+            background-size: 2000px 1000px;
+            
+        }
+        
+#field{
+    text-align: center;
+    margin:auto;
+    
+}
+#cost{
+    top:23px;
+    left:420px;
+    position: relative;
+    font-weight: bold;
+}
+#bottom{
+    top:23px;
+    left:420px;
+}
+#purchase{
+    top:20px;
+    left:700px;
+    position: relative;
+    font-weight: bold;
+    float:left;
+}
+#cancel{
+    top:20px;
+    left:750px;
+    position: relative;
+    font-weight: bold;
+    float:left;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+var count=0;
+var s_num;
+var i=7;
+var a=1;
+var s_len;
+
+function add(){            
+    var div = document.createElement('div');
+    div.id='div'+i;
+    div.innerHTML = document.getElementById('selectNum').innerHTML;
+    for(var j=a;j<a+6;j++){
+    document.getElementById('num'+j).id='num'+i;
+    i++;
+    }
+    a+=6;
+    
+    console.log(s_len);
+    document.getElementById('field').appendChild(div);     
+}
+
+function purchase(){
+    s_len=document.getElementsByName("num").length;
+    for(var i=1;i<s_len+1;i++){
+    s_num = document.getElementById('num'+i);
+    var s_option= $(s_num).val();
+    console.log(s_option);
+    }
+}
+
+function confirm(){
+    s_len=document.getElementsByName("num").length;
+    for(var i=1;i<s_len+1;i++){
+        s_num = document.getElementById('num'+i);
+        var s_option= $(s_num).val();
+    }
+    alert( $(s_num).val());
+    
+    $.ajax({
+        url:"/confirm",
+        type:"post",
+        data:s_option,
+        success:function(data){
+            alert(data);
+        }  
+    }); 
+}
+
+//  document.getElementById("cost").innerHTML=count;
+</script>
+<body>
+    <form id="formU">
+    <div id="field">
+        <input type="hidden" name="user_id" value="aaaa">
+        <div id="selectNum">  
+        <%for(var j=1;j<7;j++){%>
+        <select name="num<%=j%>" id="num<%=j%>">
+            <option>번호 선택</option>
+            <%for(var i=1;i<46;i++){%>
+                <option value="<%=i%>"><%=i%></option>
+            <%}%>
+        </select>
+        <%}%>
+        <button id="bt_con" onclick="confirm()">확인</button>
+    </div>
+</form>
+</div>
+
+<div id="bottom" >
+    <span id="cost">결제금액: 원 </span> 
+    <button type="button" id="purchase" onclick="purchase()">구매</button>
+    <button type="button" id="cancel" onclick="location.href='/loginform'">취소</button>
+    <button type="button" id="add" onclick="add()">추가</button>
+    </div>
+</body>
+</html>

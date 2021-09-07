@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        
+<title>Document</title>
+<style>
+    body {
+        background-image: url("../img/lottobk.png");
+        background-size: cover;
+    }
+    #buyWrapper {
+        height: 800px;
+        width: 100%;
+        /* background-color: coral; */
+        position: relative;
+    }
+
+    #buyWrapper2 {
+        margin-top: 60px;
+        position: absolute;
+        left: 500px;
+
+    }
+
+    #buySelect {
+        height: 600px;
+        width: 500px;
+        /* background-color: cornflowerblue; */
+        float: left;
+        position: relative;
+        margin: auto;
+        
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    #buyShow {
+        height: 600px;
+        width: 500px;
+        /* background-color:darkcyan;     */
+        float: left;
+        position: relative;
+        margin: auto;
+    }
+
+    table,
+    td,
+    th {
+        border: rgb(118, 134, 230) 1px solid;
+        text-align: center;
+    }
+
+    table {
+        width: 450px;
+        height: 470px;
+        margin: 30px auto;
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+                color: rgb(150, 156, 235);
+    }
+
+    th {
+        font-size: 30px;
+    }
+
+    td {
+        width: 80px;
+    }
+
+    span {
+        font-size: 30px;
+        margin-left: 40px;
+        padding-right: 105px;
+    }
+
+    #autoButton {
+        width: 80px;
+        height: 40px;
+        margin-left: 395px;
+        
+    }
+
+    #checkOut {
+        width: 80px;
+        height: 35px;
+    }
+
+    button{
+        background-color: rgb(58, 82, 148);
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 30px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 15px;
+    }
+
+    input{
+                background-color: rgb(195, 201, 216);
+            }
+
+    #showButton{
+        color: white;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+</style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function cls(){
+    // alert("!!!!!!");
+    
+    $('input[name=num1]').attr('value',"");
+    $('input[name=num2]').attr('value',"");
+    $('input[name=num3]').attr('value',"");
+    $('input[name=num4]').attr('value',"");
+    $('input[name=num5]').attr('value',"");
+    $('input[name=num6]').attr('value',"");
+
+}
+function selectNum(click){
+    var num1=$('input[name=num1]').val();
+    var num2=$('input[name=num2]').val();
+    var num3=$('input[name=num3]').val();
+    var num4=$('input[name=num4]').val();
+    var num5=$('input[name=num5]').val();
+    var num6=$('input[name=num6]').val();
+    var btv = click;
+
+    if(num1==""){
+        $('input[name=num1]').attr('value',btv);
+    }else if(num2==""){ 
+        $('input[name=num2]').attr('value',btv);
+    }else if(num3==""){
+        $('input[name=num3]').attr('value',btv);
+    }else if(num4==""){
+        $('input[name=num4]').attr('value',btv);
+    }else if(num5==""){
+        $('input[name=num5]').attr('value',btv);
+    }else if(num6==""){
+        $('input[name=num6]').attr('value',btv);
+    }
+  
+        
+}
+
+function check(){
+    if(num1==num2 ||num1==num3 ||num1==num4 ||num1==num5 || num1==num6 ||
+    num2==num3 ||num2==num4 ||num2==num5 ||num2==num6 
+    ||num3==num4 ||num3==num5 || num3==num6
+    ||num4==num5 ||num4==num6 
+    ||num5==num6  ){
+        alert("번호가 중복되었습니다!!");
+    }
+}
+function buy(){
+    $("form").attr({
+        action:"/purchase",
+        method:"POST"
+    });
+    $("form").submit();
+    /*
+    if(confirm("추가로 구매하시겠습니까?")){
+        location.href="/buy";
+    }else{
+        location.href="/info";
+    }
+    */
+    
+}
+
+</script>
+    <body>
+        <%-include("./header.ejs")%>
+        <div id="buyWrapper">
+            <div id="buyWrapper2">
+                <div id="buySelect">
+                    <table id="selectNum">
+                        <tr >
+                            <th colspan="10" style="height: 70px;">번호 선택</th>
+                        </tr>                    
+                            <tr>
+                                <%for(var a=1;a<46;a++){%>
+                                    <%if(a%10==0){%>
+                                        <td><button class="btv" type="button" onclick="selectNum(this.value)" value="<%=a%>"><%=a%></button></td>
+                                    <tr>   
+                                       
+                                    </tr>
+                                    <%}else{%>
+                                        <td><button  class="btv" type="button" onclick="selectNum(this.value)" value="<%=a%>"><%=a%></button></td>
+                                    <%}%>
+                                <%}%>
+                            </tr>                  
+                    </table>
+                    <div id="selectB">
+                        <button  id="autoButton" onclick="cls()">초기화</button>             
+                    </div>
+                    
+
+                </div>
+
+                <div id="buyShow">
+                    <form>
+                        <input type="hidden" name="user_id" value="<%clientUser.user_id%>" ></input>
+                    <table id="showSelect" style="height: 100px;">
+                        <tr>
+                            <th colspan="6" style="height: 50px;">LOTTO</th>
+                        </tr>
+                        <tr>                                              
+                            <td><input type="text" name="num1" style="width: 20px;" ></input></td>
+                            <td><input type="text" name="num2" style="width: 20px;" ></input></td>
+                            <td><input type="text" name="num3" style="width: 20px;" ></input></td>
+                            <td><input type="text" name="num4" style="width: 20px;" ></input></td>
+                            <td><input type="text" name="num5" style="width: 20px;" ></input></td>
+                            <td><input type="text" name="num6" style="width: 20px;" ></input></td>                                   
+                        </tr>
+                       
+                    </table>
+                    </form>
+                    <div id="showButton">
+                        <span></span>
+                        <button id="checkOut" onclick="buy()">구매</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <%-include("./footer.ejs")%>
+    </body>
+</html>

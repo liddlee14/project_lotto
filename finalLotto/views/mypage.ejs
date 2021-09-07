@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body{
+        background-image: url("../img/lottobk.png");
+        background-size: 2000px 1000px;
+    }
+#wrapper {
+ 
+  height: 400px;
+  width: 1200px;
+  margin: auto;
+  position: relative;
+  box-sizing: border-box;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+  border: rgb(118, 134, 230) 1px solid;
+  color: rgb(150, 156, 235);
+}
+
+td {
+  text-align: center;
+  padding: 13px;
+  font-weight: 800;
+  background-color: rgb(58, 82, 148);
+  opacity: 0.8;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+</style>
+</head>
+<body>
+  <%- include("./header.ejs")%>
+  <div id="wrapper">
+<%var winnum=[]%>
+<%var count=0%>
+
+<%winnum[0]=param.win1%>
+<%winnum[1]=param.win2%>
+<%winnum[2]=param.win3%>
+<%winnum[3]=param.win4%>
+<%winnum[4]=param.win5%>
+<%winnum[5]=param.win6%>
+
+
+<input type="hidden" value="<%clientUser.user_id%>">
+<table>
+  <tr>
+    <th>번호</th>
+    <th>구매번호</th>
+    <th>당첨결과</th>
+    <th>수령금액</th>
+    <th>날짜</th>
+  </tr>
+<%for(var i=0;i<param.num1.length;i++){%>
+  <%for(var j=0;j<6;j++){%>
+    <%if(param.num1[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+    <%if(param.num2[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+    <%if(param.num3[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+    <%if(param.num4[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+    <%if(param.num5[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+    <%if(param.num6[i]==winnum[j]){%>
+    <%count++%>
+    <%}%>
+  <%}%>
+
+  
+  
+    <tr>
+      <td><%=i+1%></td>
+      <td>
+        <%=buynum[i][2]%>,
+        <%=buynum[i][3]%>,
+        <%=buynum[i][4]%>,
+        <%=buynum[i][5]%>,
+        <%=buynum[i][6]%>,
+        <%=buynum[i][7]%>
+      </td>
+      <%if(count==6){%>
+      <td><%=rank[0][0]%>등</td>
+      <td><%=rank[0][1]%></td>
+ 
+      <%}%>
+      <%if(count==5){%>
+      <td><%=rank[1][0]%>등</td>
+      <td><%=rank[1][1]%></td>
+ 
+      <%}%>
+      <%if(count==4){%>
+      <td><%=rank[2][0]%>등</td>
+      <td><%=rank[2][1]%></td>
+ 
+      <%}%>
+      <%if(count==3){%>
+      <td><%=rank[3][0]%>등</td>
+      <td><%=rank[3][1]%></td>
+ 
+      <%}%>
+      <%if(count==2){%>
+      <td><%=rank[4][0]%>등</td>
+      <td><%=rank[4][1]%></td>
+      
+      <%}%>
+      <%if(count==1||count==0){%>
+      
+      <td>다음 기회에</td>
+      <td><%=rank[5][1]%></td>
+      
+      <%}%>
+      <td><%=param.date%></td>
+        
+        
+      </tr>
+ 
+     
+   
+<%}%>
+</table>
+</div>
+<%- include("./footer.ejs")%>
+</body>
+</html>

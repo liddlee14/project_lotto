@@ -1,0 +1,89 @@
+create tablespace lottospace
+datafile 'C:\Korea_Workspace\project_lotto\sql\LOTTO.dbf' size 100m
+autoextend on next 10m;
+
+drop user bugda cascade;
+
+CREATE USER bugda IDENTIFIED BY "1234" DEFAULT TABLESPACE lottospace;
+(create user c##bugda identified by 1234;)
+
+grant connect,resource,dba to bugda;
+(grant connect, resource, dba to c##bugda;)
+
+grant create table to bugda;
+
+grant create session to bugda;
+
+[bugda 연결]
+
+create table client(
+client_id number primary key
+, user_id varchar(20)
+, pass varchar(20)
+, name varchar(20)
+, birth varchar(20)
+,phone varchar(13) 
+)
+ /
+
+grant create sequence to bugda;
+
+create sequence seq_client
+increment by 1
+start with 1
+
+grant delete, insert, select, update on client to bugda;
+
+insert into client(client_id,user_id,pass,name,birth,phone)
+values(seq_client.nextval,'aaaa','1234','ysj','940916','010-1111-2222')
+
+create table winnum(
+win_id number primary key,
+day date default sysdate,
+num1 number,
+num2 number,
+num3 number,
+num4 number,
+num5 number,
+num6 number
+)
+
+create sequence seq_win
+increment by 1
+start with 1
+
+create sequence seq_rank
+increment by 1
+start with 1;
+
+create table rank(
+rank_id number primary key
+, money varchar(20)
+)
+
+insert into rank(rank_id,money) values(seq_rank.nextval,'10억원');
+insert into rank(rank_id,money) values(seq_rank.nextval,'1억');
+insert into rank(rank_id,money) values(seq_rank.nextval,'5천만원'); 
+insert into rank(rank_id,money) values(seq_rank.nextval,'500만원');
+insert into rank(rank_id,money) values(seq_rank.nextval,'5천원');
+insert into rank(rank_id,money) values(seq_rank.nextval,'꽝');
+
+create table buylotto(
+ buy_id number primary key
+ , user_id varchar(20)
+ , num1 number
+ , num2 number
+ , num3 number
+ , num4 number
+ , num5 number
+ , num6 number
+ )
+
+alter table buylotto add constraints fk_buy foreign key(user_id)
+ references client(user_id);
+
+create sequence seq_buy
+increment by 1
+start with 1;
+
+update rank set money='0' where rank_id=6;
